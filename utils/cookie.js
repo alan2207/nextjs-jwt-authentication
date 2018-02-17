@@ -1,3 +1,6 @@
+// resource for handling cookies taken from here:
+// https://github.com/carlos-peru/next-with-api/blob/master/lib/session.js
+
 import cookie from 'js-cookie';
 
 export const setCookie = (key, value) => {
