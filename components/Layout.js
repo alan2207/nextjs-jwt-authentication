@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import Head from 'next/head';
+import { connect } from 'react-redux';
+import actions from '../redux/actions';
 
-export default ({ children, title }) => (
+const Layout = ({ children, title, isAuthenticated, deauthenticate }) => (
   <div>
     <Head>
       <title>{ title }</title>
@@ -12,8 +14,9 @@ export default ({ children, title }) => (
     <div className="tabs is-centered">
       <ul>
         <Link href="/"><a>Home</a></Link>
-        <Link href="/signin"><a>Sign In</a></Link>
-        <Link href="/signup"><a>Sign Up</a></Link>
+        {!isAuthenticated && <Link href="/signin"><a>Sign In</a></Link>}
+        {!isAuthenticated && <Link href="/signup"><a>Sign Up</a></Link>}
+        {isAuthenticated && <li onClick={deauthenticate}><a>Sign Out</a></li>}
         <Link href="/whoami"><a>Who Am I</a></Link>
       </ul>
     </div>
@@ -23,3 +26,9 @@ export default ({ children, title }) => (
     </div>
   </div>
 );
+
+const mapStateToProps = (state) => (
+  {isAuthenticated: !!state.authentication.token}
+);
+
+export default connect(mapStateToProps, actions)(Layout);

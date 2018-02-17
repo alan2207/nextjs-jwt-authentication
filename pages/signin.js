@@ -2,6 +2,7 @@ import React from 'react';
 import withRedux from 'next-redux-wrapper';
 import { initStore } from '../redux';
 import actions from '../redux/actions';
+import initialize from '../utils/initialize';
 import Layout from '../components/Layout';
 
 class Signin extends React.Component {
@@ -11,6 +12,10 @@ class Signin extends React.Component {
       email: '',
       password: '',
     };
+  }
+
+  static getInitialProps (ctx) {
+    initialize(ctx);
   }
 
   handleSubmit(e) {
