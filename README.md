@@ -31,6 +31,8 @@ When the user makes a page request, cookies are also sent along, so the server c
 
 Make sure you have Node and NPM installed.
 
+Also make sure you have the [API server](https://github.com/alan2207/express-server-jwt) running.
+
 ```bash
 git clone https://github.com/alan2207/nextjs-jwt-authentication
 cd nextjs-jwt-authentication
