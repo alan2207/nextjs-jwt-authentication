@@ -1,6 +1,5 @@
 import React from 'react';
-import withRedux from 'next-redux-wrapper';
-import { initStore } from '../redux';
+import { connect } from 'react-redux';
 import actions from '../redux/actions';
 import initialize from '../utils/initialize';
 import Layout from '../components/Layout';
@@ -10,17 +9,20 @@ class Signup extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
+      password: ''
     };
   }
 
-  static getInitialProps (ctx) {
+  static getInitialProps(ctx) {
     initialize(ctx);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.authenticate({email: this.state.email, password: this.state.password}, 'signup');
+    this.props.authenticate(
+      { email: this.state.email, password: this.state.password },
+      'signup'
+    );
   }
 
   render() {
@@ -40,7 +42,7 @@ class Signup extends React.Component {
                 placeholder="Email"
                 required
                 value={this.state.email}
-                onChange={(e) => this.setState({email: e.target.value})}
+                onChange={e => this.setState({ email: e.target.value })}
               />
               <span className="icon is-small is-left">
                 <i className="fas fa-envelope" />
@@ -58,7 +60,7 @@ class Signup extends React.Component {
                 placeholder="Password"
                 required
                 value={this.state.password}
-                onChange={(e) => this.setState({password: e.target.value})}
+                onChange={e => this.setState({ password: e.target.value })}
               />
               <span className="icon is-small is-left">
                 <i className="fas fa-lock" />
@@ -78,4 +80,7 @@ class Signup extends React.Component {
   }
 }
 
-export default withRedux(initStore, null, actions)(Signup);
+export default connect(
+  state => state,
+  actions
+)(Signup);
